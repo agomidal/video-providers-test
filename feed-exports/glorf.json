@@ -1,0 +1,21 @@
+{
+    "videos": [
+        {
+            "tags": [
+                "microwave",
+                "cats",
+                "peanutbutter"
+            ],
+            "url": "http://glorf.com/videos/3",
+            "title": "science experiment goes wrong"
+        },
+        {
+            "tags": [
+                "dog",
+                "amazing"
+            ],
+            "url": "http://glorf.com/videos/4",
+            "title": "amazing dog can talk"
+        }
+    ]
+}
