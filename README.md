@@ -18,7 +18,7 @@ Considerations:
 - Do not implement any data persistence code, just provide some dummy classes that echo what they are doing.  Keep in mind that the company is planning to switch from MySQL to Cassandra in 4 months.
 - The focus here should be on design, more than implementation.  We are less interested in seeing that this works than in seeing how you approach the problem.
 - Please provide at least some unit tests (it is not required to write them for every class). Functional tests are also a plus.
-- Please provide a short summary detailing anything you think is relevant, for example:
+- Please provide a short summary as SUMMARY.md detailing anything you think is relevant, for example:
   - Installation steps
   - How to run your code / tests
   - Where to find your code
