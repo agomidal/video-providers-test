@@ -14,7 +14,7 @@ importing: "amazing dog can talk"; Url: http://glorf.com/videos/4; Tags: dog,ama
 Considerations:
 
 - Currently, we are importing videos from 2 sites: flub, and glorf.  They send us their weekly feed via email.  This weeks files are in /feed-exports
-- We plan to add a third provider soon who will make their feed available via json output online via a url (you don't need to implement this, just keep it mind)
+- We plan to add a third provider soon who will make their feed available via json output via a proprietary protocol (you don't need to implement this, just keep it mind)
 - Do not implement any data persistence code, just provide some dummy classes that echo what they are doing.  Keep in mind that the company is planning to switch from MySQL to Cassandra in 4 months.
 - The focus here should be on design, more than implementation.  We are less interested in seeing that this works than in seeing how you approach the problem.
 - Please provide at least some unit tests (it is not required to write them for every class). Functional tests are also a plus.
