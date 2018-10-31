@@ -27,5 +27,6 @@ Considerations:
   - Etc.
 
 * * * 
+## Delivery
 
-Please email your completed test to me as a git patch (https://ariejan.net/2009/10/26/how-to-create-and-apply-a-patch-with-git/).
+Please squash your commits into one, create a git patch (https://ariejan.net/2009/10/26/how-to-create-and-apply-a-patch-with-git/) and email your completed test to me.
