@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  php:
+    build:
+      context: ./php
+      dockerfile: dockerfile
+    volumes:
+      - ../app:/var/app
+    ports:
+      - "9000:9000"

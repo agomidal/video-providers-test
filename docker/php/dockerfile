@@ -1,0 +1,11 @@
+FROM php:7.4-fpm-alpine
+
+RUN addgroup -g 1000 symfony && adduser -G symfony -g symfony -s /bin/sh -D symfony
+
+RUN mkdir -p /var/app
+
+RUN chown symfony:symfony /var/app
+
+RUN apk add curl && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.13
+
+WORKDIR /var/app
