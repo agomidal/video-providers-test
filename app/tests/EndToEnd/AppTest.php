@@ -24,12 +24,12 @@ class AppTest extends KernelTestCase
 
     public function test_it_imports_from_glorf_correctly()
     {
-        //When executing the command to import videos from "glorf"
+        When executing the command to import videos from "glorf"
         $this->commandTester->execute([
             'provider' => 'glorf',
         ]);
 
-        //The output should contain the correct lines
+        The output should contain the correct lines
         $output = $this->commandTester->getDisplay();
         $this->assertStringContainsString('importing: "science experiment goes wrong"; Url: http://glorf.com/videos/3; Tags: microwave,cats,peanutbutter', $output);
         $this->assertStringContainsString('importing: "amazing dog can talk"; Url: http://glorf.com/videos/4; Tags: dog,amazing', $output);

@@ -1,0 +1,15 @@
+# sources_dir: ''
+providers:
+  flub: 
+    # class: 'App\Video\Providers\FlurbProvider'
+    source-type: local
+    source-path: 'tmp/feed-exports/flub.yaml'
+
+  glorf: 
+    # class: 'App\Video\Providers\GlorfProvider'
+    source-type: local
+    source-path: 'tmp/feed-exports/glorf.json'
+
+  third_provider:
+    source-type: remote
+    source-path: 'tmp/feed-exports/third_provider.json'
