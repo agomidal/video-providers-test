@@ -6,23 +6,18 @@ use App\Video\Providers\VideoProviderInterface;
 use App\Utils\Parsing\FileParserInterface;
 use App\Utils\Parsing\YAMLFileParser;
 
+/**
+ * Dummy unfinished class. Use as an idea of how the other approach 
+ * I talk about in the readme.md was about to be implemented.
+ */
 class VideoProviderFactory {
 
     protected $instances = [];
     protected $providersConfig = [];
 
-
-    
-    // protected $parserFactory = null;
-    // protected $videoSourceNormalizer = null;
-
-// -->FileParserFactory $parserFactory, VideoSourceNormalizerFactory $normalizerFactory
-// hacerlos estaticos para facilitar su uso y nunca necesitaran estado son clases muy simples
-    public function __construct(ConfigurationLoader $config, String $kernelRootDir) {
-        // $this->parserFactory = $parserFactory;
-        // $this->normalizerFactory = $normalizerFactory;
+    public function __construct(ConfigurationLoader $config, String $kernelProjectDir) {
         $this->providersConfig = $config->load('providers.yaml');
-        $this->kernelRootDir = $kernelRootDir;
+        $this->kernelProjectDir = $kernelProjectDir;
     }
     
 
@@ -37,8 +32,7 @@ class VideoProviderFactory {
         //read config for providerName
         $providerConfig = $this->providersConfig[$providerName];
 
-        //call makeFileParser for corresponding format
-        
+        //call makeFileParser for corresponding format        
         $fileParser = $this->makeSourceFileParser($providerConfig['filename']);
         //call makeVideoNormalizer for corresponding normalization
         $providerNormalizer = $this->makeProviderNormalizer($providerName);
@@ -49,17 +43,20 @@ class VideoProviderFactory {
         return $instance;
 
         // probably need additional logic to handle remote file sources 
-        // in order to instantiate them (FTP Manager and other dependencias
+        // in order to instantiate them (FTP Manager and other dependencies
         //must be handled)
     }
 
-    // Static call to to other factory, same for normalizer
+    // Static call to to other factory to ask for corresponding parser 
+    // given the file format
     private function makeSourceFileParser(String $fileName) : FileParserInterface {
         $format = preg_match('/.+\.(.+)$/', $fileName)[1];
         // get file parser from factory and return it
         return FileParserFactory::makeParser($format);
     }
 
+    // Static call to to other factory to ask for corresponding normalizer 
+    // given the provider name
     private function makeProviderNormalizer($providerName) {
         return ProviderNormalizerFactory::makeNormalizer($providerName);
     }

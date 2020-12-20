@@ -51,9 +51,9 @@ services:
         arguments:
             - 'thirdProviderName'
             - '@App\Config\ConfigurationLoader'
-            - '@App\Utils\Parsing\YAMLFileParser'   
-            - '@App\Normalization\Video\FlubVideoSourceNormalizer' 
-            - '@App\Utils\RemoteDownloader' # imaginary implementation of RemoteResourceDownloaderInterface
+            - '@App\Utils\Parsing\JSONFileParser'   
+            - '@App\Normalization\Video\ThirdProviderVideoSourceNormalizer' 
+            - '@App\Utils\FTPRemoteDownloader' # imaginary implementation of RemoteResourceDownloaderInterface
 
     # ----------------------------------------------------------
     # --------------- END SOURCE READER SERVICES ---------------

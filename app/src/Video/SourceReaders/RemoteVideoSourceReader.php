@@ -28,7 +28,7 @@ class RemoteVideoSourceReader extends AbstractVideoSourceReader {
         
         // DUMMY CODE
 
-        $filePath = $this->remoteDownloader->download();
+        $filePath = $this->remoteDownloader->download(); //download file and return its path
         $parsedSourceFile = $this->fileParser->parse($filePath);
         return $this->videoNormalizer->normalize($parsedSourceFile);
     }

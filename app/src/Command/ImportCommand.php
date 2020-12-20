@@ -16,11 +16,12 @@ class ImportCommand extends Command
     
     // protected $entityManager;
 
-    // public function __construct(/*EntityManagerInterface $entityManager*/VideoProviderFactory $providerFactory) {
+    /**
+     * NOTE: This String $entityManager should be a Persistence service 
+     * instead. I leave it declared as a String to avoid crashing.
+     */
     public function __construct(String $entityManager, array $availableProviders) {
         // $this->entityManager = $entityManager;
-        // $this->providerFactory = $providerFactory;
-        // dd($availableProviders);
         $this->availableProviders = $availableProviders;
 
         parent::__construct();
@@ -35,7 +36,6 @@ class ImportCommand extends Command
     {
         try {
             $videoProvider = $this->parseProviderFromAvailableProviders($input->getArgument('provider'));
-
             $videos = $videoProvider->provide();
 
             $this->persistVideos($videos, $output);
@@ -57,6 +57,10 @@ class ImportCommand extends Command
             return key($provider) === $inputProvider;
         });
 
+        if (empty($videoProvider)) {
+            throw new \Exception('Unknown provider "' . $inputProvider . '"');
+        }
+
         return array_pop($videoProvider)[$inputProvider];
     }
 
@@ -64,10 +68,12 @@ class ImportCommand extends Command
      * Code responsable of persisting to database is commented
      */
     private function persistVideos(array $videos, OutputInterface $output) {
-        //the code responsible of performing database actions 
-        //(bulking the database statements, persisting objetcs, etc)
-        //should be moved to another service, which would be the one 
-        //we would inject here as a dependency instead of the EntityManager
+        /*
+        * The code responsible of performing database actions 
+        * (bulking the database statements, persisting objetcs, etc)
+        * should be moved to another service, which would be the one 
+        * we would inject here as a dependency instead of the EntityManager
+        */
         $bulkInsertAmountStatements = 100;
 
         for ($i = 0; $i < count($videos); $i++) {

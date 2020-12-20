@@ -23,10 +23,13 @@ import:
 logs:
 	docker-compose -f docker/docker-compose.yml logs -f php
 
-tests: tests-unit tests-end-to-end
+tests: tests-unit tests-end-to-end tests-functional
 
 tests-unit:
 	docker-compose -f docker/docker-compose.yml exec php sh -c "./vendor/bin/phpunit --testsuite Unit"
+
+tests-functional:
+	docker-compose -f docker/docker-compose.yml exec php sh -c "./vendor/bin/phpunit --testsuite Functional"
 
 tests-end-to-end:
 	docker-compose -f docker/docker-compose.yml exec php sh -c "./vendor/bin/phpunit --testsuite EndToEnd"
