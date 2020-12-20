@@ -21,12 +21,67 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
             - '../src/Tests/'
+            - '../src/Video/Providers/Old/'
+
+    # ----------------------------------------------------------
+    # ----------------- SOURCE READER SERVICES -----------------
+    # ----------------------------------------------------------
+    source_reader.glorf:
+        class: App\Video\SourceReaders\LocalVideoSourceReader
+        autowire: false
+        arguments:
+            - 'glorf'
+            - '@App\Config\ConfigurationLoader'
+            - '@App\Utils\Parsing\JSONFileParser'
+            - '@App\Normalization\Video\GlorfVideoSourceNormalizer'
+
+    source_reader.flub:
+        class: App\Video\SourceReaders\LocalVideoSourceReader
+        autowire: false
+        arguments:
+            - 'flub'
+            - '@App\Config\ConfigurationLoader'
+            - '@App\Utils\Parsing\YAMLFileParser'   
+            - '@App\Normalization\Video\FlubVideoSourceNormalizer' 
+
+    # NOT IMPLEMENTED REMOTE SOURCE PROVIDER BELOW
+    source_reader.thirdProvider: 
+        class: App\Video\SourceReaders\RemoteVideoSourceReader
+        autowire: false
+        arguments:
+            - 'thirdProviderName'
+            - '@App\Config\ConfigurationLoader'
+            - '@App\Utils\Parsing\YAMLFileParser'   
+            - '@App\Normalization\Video\FlubVideoSourceNormalizer' 
+            - '@App\Utils\RemoteDownloader' # imaginary implementation of RemoteResourceDownloaderInterface
+
+    # ----------------------------------------------------------
+    # --------------- END SOURCE READER SERVICES ---------------
+    # ----------------------------------------------------------
+
+
+    # -----------------------------------------------------------
+    # -------------------- PROVIDER SERVICES --------------------
+    # -----------------------------------------------------------
+
+    providers.glorf:
+        class: App\Video\Providers\VideoProvider
+        autowire: false
+        arguments:
+            - '@source_reader.glorf'
+
+    providers.flub:
+        class: App\Video\Providers\VideoProvider
+        autowire: false
+        arguments:
+            - '@source_reader.flub'   
+            
+    # ----------------------------------------------------------
+    # ------------------ END PROVIDER SERVICES -----------------
+    # ----------------------------------------------------------      
 
     App\Config\ConfigurationLoader:
         arguments: ['@App\Utils\Parsing\YAMLFileParser', '%kernel.project_dir%']
-
-    App\Factory\VideoProviderFactory:
-        arguments: ['@App\Config\ConfigurationLoader']
 
     App\Command\:
         resource: '../src/Command'
@@ -34,7 +89,7 @@ services:
         autowire: true
         # arguments: '@doctrine.orm.entity_manager', [
         arguments: ['doctrineEntityManagerServiceHere', [
-            '@App\Video\Providers\FlubVideoProvider', 
-            '@App\Video\Providers\GlorfVideoProvider'
-            # Additional Video Providers should be registered here
+        # ADD VIDEO PROVIDER SERVICES AS ARGUMENTS FOR THE VIDEOPROVIDER HERE
+            flub: '@providers.flub', 
+            glorf: '@providers.glorf'
         ]]
